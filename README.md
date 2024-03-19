@@ -1,6 +1,6 @@
 # Docker config for Multiuser dl platform;
 ## Directory tree:
-- ```markdown
+```markdown
 └── office
     ├── stus
     |   ├── docker-compose.yml
@@ -17,7 +17,7 @@
     └── Dockerfile
 ```
 ## Usage:
-- get into the directory where docker config file (like `docker-compose.yml`) is
+- get into the directory where docker config file (like `docker-compose.yml` ) is
 - uncompress the apt files into the user conf directory
 ```shell
 tar -zxvf ../scripts/apt.tar.gz -C data/stu1/conf
