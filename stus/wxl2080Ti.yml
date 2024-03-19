@@ -1,0 +1,52 @@
+# please make sure that ports starts from 4xxx!
+# please make sure that volumes starts from stu4!
+version: '2.8'
+services:
+  hb2021:
+    hostname: hb2021
+    container_name: hb2021
+    build: ..
+    image: wxl2080ti:0.1.0
+    runtime: nvidia  # 使用NVIDIA Docker runtime
+    ports:
+      - "4022:22"
+      - "4591:5902"
+      - "4088:8888"
+      - "4666:6006"
+    volumes:
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./data/stu4/workspace:/home/workspace  # 挂载工作目录
+      - ./data/stu4/envs/:/opt/anaconda/envs
+      - ./data/stu4/conf/apt:/etc/apt
+    environment:
+      # - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all  # 使用所有可见的NVIDIA设备
+    privileged: true
+    shm_size: 32gb
+    stdin_open: true
+    tty: true
+
+  test2024:
+    hostname: test2023
+    container_name: test2023
+    build: ..
+    image: wxl2080ti:0.1.0
+    runtime: nvidia  # 使用NVIDIA Docker runtime
+    # please make sure ports on this machine starts from 4xxx!
+    ports:
+      - "5022:22"
+      - "5591:5902"
+      - "5088:8888"
+      - "5666:6006"
+    volumes:
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./data/stu5/workspace:/home/workspace  # 挂载工作目录
+      - ./data/stu5/envs/:/opt/anaconda/envs
+      - ./data/stu5/conf/apt:/etc/apt
+    environment:
+      # - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all  # 使用所有可见的NVIDIA设备
+    privileged: true
+    shm_size: 32gb
+    stdin_open: true
+    tty: true
