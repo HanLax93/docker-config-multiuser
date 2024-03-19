@@ -1,4 +1,4 @@
-# Docker config for Multiuser dl platform;
+# Docker config for Multiuser dl platform
 ## Directory tree:
 ```markdown
 └── office
