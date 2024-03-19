@@ -2,9 +2,9 @@
 # please make sure that volumes starts from stu4!
 version: '2.8'
 services:
-  hb2021:
-    hostname: hb2021
-    container_name: hb2021
+  stu1:
+    hostname: stu1
+    container_name: stu1
     build: ..
     image: wxl2080ti:0.1.0
     runtime: nvidia  # 使用NVIDIA Docker runtime
@@ -26,9 +26,9 @@ services:
     stdin_open: true
     tty: true
 
-  test2024:
-    hostname: test2023
-    container_name: test2023
+  stu2:
+    hostname: stu2
+    container_name: stu2
     build: ..
     image: wxl2080ti:0.1.0
     runtime: nvidia  # 使用NVIDIA Docker runtime

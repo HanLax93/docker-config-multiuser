@@ -1,0 +1,25 @@
+version: '2.8'
+services:
+  ${stu_name}:
+    hostname: ${stu_name}
+    container_name: ${stu_name}
+    build: ..
+    image: wxl2080ti:0.1.0
+    runtime: nvidia  # 使用NVIDIA Docker runtime
+    ports:
+      - "${stu_index}022:22"  # ssh port
+      - "${stu_index}591:5902"  # vnc port
+      - "${stu_index}088:8888"  # jupyter port
+      - "${stu_index}666:6006"  # tensorboard port
+    volumes:
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./data/stu${stu_index}/workspace:/home/workspace  # 挂载工作目录
+      - ./data/stu${stu_index}/envs/:/opt/anaconda/envs
+      - ./data/stu${stu_index}/conf/apt:/etc/apt
+    environment:
+      # - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all  # 使用所有可见的NVIDIA设备
+    privileged: true
+    shm_size: 32gb
+    stdin_open: true
+    tty: true
