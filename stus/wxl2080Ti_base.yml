@@ -3,6 +3,7 @@ services:
   ${stu_name}:
     hostname: ${stu_name}
     container_name: ${stu_name}
+    user: 100${stu_index}:100${stu_index}
     build: ..
     image: wxl2080ti:0.1.0
     runtime: nvidia  # 使用NVIDIA Docker runtime
