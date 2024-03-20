@@ -39,3 +39,4 @@ docker exec -it -uroot container_name sudo service ssh start
 ```shell
 ssh -p x022 stu@ip
 ```
+- when adding containers for users, just add more services reference to wxl2080Ti_base.yml and increase the stu_index
