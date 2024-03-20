@@ -68,6 +68,7 @@ COPY ./scripts/fixuid-0.6.0-linux-amd64.tar.gz /home/stu/fixuid.tar.gz
 RUN USER=stu && \
 	GROUP=sudo && \
 	tar xzf /home/stu/fixuid.tar.gz -C /usr/local/bin && \
+  rm /home/stu/fixuid.tar.gz && \
 	chown root:root /usr/local/bin/fixuid && \
 	chmod 4755 /usr/local/bin/fixuid && \
 	mkdir -p /etc/fixuid && \

@@ -27,9 +27,8 @@ tar -zxvf ../scripts/apt.tar.gz -C data/stu1/conf
 ```shell
 docker-compose -f docker-compose.yml up -d
 ```
-- get into the container(s) and set the password for them
+- start ssh service (everytime you start the container(s))
 ```shell
-docker exec -it container_name /bin/bash
-passwd
+docker exec -it container_name sudo service ssh start
 ```
 - use ssh to connect the container(s)

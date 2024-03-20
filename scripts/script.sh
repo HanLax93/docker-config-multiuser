@@ -6,5 +6,8 @@ conda clean -all -y
 # 开启 vncserver
 # nohup vncserver :2 -localhost no &
 
+# 
+conda init
+
 # 保持会话
 tail -f /dev/null
