@@ -1,10 +1,12 @@
-# please make sure that ports starts from 4xxx!
-# please make sure that volumes starts from stu4!
+# please make sure that ports starts from 4xxx (just for my machine)!
+# please make sure that volumes starts from stu4 (just for my machine)!
+# here is a example
 version: '2.8'
 services:
-  stu1:
-    hostname: stu1
-    container_name: stu1
+  hhb2023:
+    hostname: hhb2023
+    container_name: hhb2023
+    user: 1004:1004
     build: ..
     image: wxl2080ti:0.1.0
     runtime: nvidia  # 使用NVIDIA Docker runtime
@@ -15,34 +17,9 @@ services:
       - "4666:6006"
     volumes:
       # - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./data/stu4/workspace:/home/workspace  # 挂载工作目录
+      - ./data/stu4/workspace:/home/stu/workspace  # 挂载工作目录
       - ./data/stu4/envs/:/opt/anaconda/envs
       - ./data/stu4/conf/apt:/etc/apt
-    environment:
-      # - DISPLAY=$DISPLAY
-      - NVIDIA_VISIBLE_DEVICES=all  # 使用所有可见的NVIDIA设备
-    privileged: true
-    shm_size: 32gb
-    stdin_open: true
-    tty: true
-
-  stu2:
-    hostname: stu2
-    container_name: stu2
-    build: ..
-    image: wxl2080ti:0.1.0
-    runtime: nvidia  # 使用NVIDIA Docker runtime
-    # please make sure ports on this machine starts from 4xxx!
-    ports:
-      - "5022:22"
-      - "5591:5902"
-      - "5088:8888"
-      - "5666:6006"
-    volumes:
-      # - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./data/stu5/workspace:/home/workspace  # 挂载工作目录
-      - ./data/stu5/envs/:/opt/anaconda/envs
-      - ./data/stu5/conf/apt:/etc/apt
     environment:
       # - DISPLAY=$DISPLAY
       - NVIDIA_VISIBLE_DEVICES=all  # 使用所有可见的NVIDIA设备

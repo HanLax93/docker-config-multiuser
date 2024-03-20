@@ -34,10 +34,6 @@ RUN cat /tmp/extra >> /etc/bash.bashrc \
 ListenAddress 0.0.0.0\n\
 PermitRootLogin yes\n" >> /etc/ssh/sshd_config
 
-# 启动 vnc 以及 ssh
-COPY ./scripts/xstartup /root/.vnc/xstartup
-COPY ./scripts/passwd /root/.vnc/passwd
-
 # 设置Anaconda环境
 ENV ANACONDA_VERSION 2023.07-0
 # COPY ./scripts/Anaconda3-2023.07-0-Linux-x86_64.sh /Anaconda3-2023.07-0-Linux-x86_64.sh
@@ -47,14 +43,40 @@ RUN wget https://mirrors.njupt.edu.cn/anaconda/archive/Anaconda3-${ANACONDA_VERS
 ENV PATH /opt/anaconda/bin:$PATH
 
 # 替换 conda 源和 pip 源
-COPY ./scripts/.condarc /root/.condarc
-COPY ./scripts/.bashrc /root/.bashrc
+COPY ./scripts/.condarc /home/stu/.condarc
+COPY ./scripts/.bashrc /home/stu/.bashrc
+COPY ./scripts/.profile /home/stu/.profile
 RUN conda init bash && pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 设置用户 stu
+RUN useradd --create-home --no-log-init --shell /bin/bash stu \
+	&& adduser stu sudo \
+	&& echo 'stu:000000' | chpasswd
+
+# 启动 vnc 以及 ssh
+COPY ./scripts/xstartup /home/stu/.vnc/xstartup
+COPY ./scripts/passwd /home/stu/.vnc/passwd
 
 # 其他设置
 ENV PATH /usr/local/cuda/bin:$PATH
 COPY ./scripts/motd /etc/motd
 COPY ./scripts/script.sh /usr/script.sh
-RUN chmod +x /usr/script.sh /root/.vnc/xstartup
+RUN chmod +x /usr/script.sh /home/stu/.vnc/xstartup
+
+# 设置用户 uid 以及 gid
+COPY ./scripts/fixuid-0.6.0-linux-amd64.tar.gz /home/stu/fixuid.tar.gz
+RUN USER=stu && \
+	GROUP=sudo && \
+	tar xzf /home/stu/fixuid.tar.gz -C /usr/local/bin && \
+	chown root:root /usr/local/bin/fixuid && \
+	chmod 4755 /usr/local/bin/fixuid && \
+	mkdir -p /etc/fixuid && \
+	printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml && \
+  chown -R stu:sudo /home/stu && \
+  service ssh start  # does not work, can not figure it out
+
+USER stu
+# ENV PATH /opt/anaconda/bin:$PATH
 CMD ["sh", "/usr/script.sh"]
-WORKDIR /home/workspace
+ENTRYPOINT ["fixuid"]
+WORKDIR /home/stu/workspace
