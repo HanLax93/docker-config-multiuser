@@ -73,8 +73,9 @@ RUN USER=stu && \
 	chmod 4755 /usr/local/bin/fixuid && \
 	mkdir -p /etc/fixuid && \
 	printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml && \
-  chown -R stu:sudo /home/stu && \
-  service ssh start  # does not work, can not figure it out
+  #  设置文件夹
+  mkdir -p /home/stu/workspace /home/stu/.conda/envs && \
+  chown -R stu:sudo /home/stu
 
 USER stu
 # ENV PATH /opt/anaconda/bin:$PATH

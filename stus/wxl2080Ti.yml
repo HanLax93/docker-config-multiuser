@@ -3,22 +3,22 @@
 # here is a example
 version: '2.8'
 services:
-  hhb2023:
-    hostname: hhb2023
-    container_name: hhb2023
+  test:
+    hostname: test
+    container_name: test
     user: 1004:1004
     build: ..
     image: wxl2080ti:0.1.0
     runtime: nvidia  # 使用NVIDIA Docker runtime
     ports:
-      - "4022:22"
-      - "4591:5902"
-      - "4088:8888"
-      - "4666:6006"
+      - "4022:22"  # ssh port
+      - "4591:5902"  # vnc port
+      - "4088:8888"  # jupyter port
+      - "4666:6006"  # tensorboard port
     volumes:
       # - /tmp/.X11-unix:/tmp/.X11-unix
       - ./data/stu4/workspace:/home/stu/workspace  # 挂载工作目录
-      - ./data/stu4/envs/:/opt/anaconda/envs
+      - ./data/stu4/envs/:/home/stu/.conda/envs
       - ./data/stu4/conf/apt:/etc/apt
     environment:
       # - DISPLAY=$DISPLAY

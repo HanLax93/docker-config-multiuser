@@ -21,6 +21,8 @@
 ```shell
 cd stus
 mkdir -p data/stux/conf
+mkdir -p date/stux/envs
+mkdir -p data/stux/workspace
 ```
 - uncompress the apt files into the user conf directory
 ```shell
