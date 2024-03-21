@@ -74,7 +74,6 @@ RUN USER=stu && \
 	mkdir -p /etc/fixuid && \
 	printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml && \
   #  设置文件夹
-  mkdir -p /home/stu/workspace /home/stu/.conda/envs && \
   chown -R stu:sudo /home/stu
 
 USER stu
