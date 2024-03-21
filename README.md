@@ -20,9 +20,7 @@
 - get into the directory where docker config file (like `docker-compose.yml` ) is and create the directory for stu's apt files
 ```shell
 cd stus
-mkdir -p data/stux/conf
-mkdir -p date/stux/envs
-mkdir -p data/stux/workspace
+mkdir -p data/stux/conf data/stux/envs data/stux/workspace
 ```
 - uncompress the apt files into the user conf directory
 ```shell
@@ -33,9 +31,13 @@ tar -zxvf ../scripts/apt.tar.gz -C data/stux/conf
 ```shell
 docker-compose -f docker-compose.yml up -d
 ```
+- change the owner of directories
+```shell
+docker exec -it -uroot container_name chown -R stu:sudo /home/stu
+```
 - start ssh service (everytime you restart the container(s))
 ```shell
-docker exec -it -uroot container_name sudo service ssh start
+docker exec -it -uroot container_name service ssh start
 ```
 - use ssh to connect the container(s)
 ```shell
